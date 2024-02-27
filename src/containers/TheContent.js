@@ -10,7 +10,9 @@ import { CContainer } from "@coreui/react";
 // import UserList from "../views/project-files/employee/user-details/UserList";
 // import Dashboard from "src/views/project-files/dashboard/Dashboard";
 import TransporterList from "../views/project-files/transporter/transporterList"
-// import UserDetailsPage from "../views/project-files/employee/user-details/UserDetailsPage";
+import TransporterUserList from "../views/project-files/transporter/transporterWiseUserList";
+import TransporterVehicalList from "../views/project-files/transporter/transporterVehicalList";
+import TransporterOtherList from "../views/project-files/transporter/transpoterOtherList";
 
 
 const loading = (
@@ -42,7 +44,24 @@ const TheContent = () => {
               name="transporter List"
               component={TransporterList}
             />
-           
+            <Route
+              path="/transporter/user/:transporter_id"
+              exact="true"
+              name="transporter User List"
+              component={TransporterUserList}
+            />
+            <Route
+              path="/transporter/vehical/:transporter_id"
+              exact="true"
+              name="transporter Vehical List"
+              component={TransporterVehicalList}
+            />
+            <Route
+              path="/transporter/other/:transporter_id"
+              exact="true"
+              name="transporter other List"
+              component={TransporterOtherList}
+            />
             
             <Redirect from="/" to="/transporter" />
           </Switch>
