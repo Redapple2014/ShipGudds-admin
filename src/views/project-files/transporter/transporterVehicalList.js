@@ -133,7 +133,7 @@ export default function TransporterVehicalList(props) {
                                 <div className="col-12 col-sm-4">
                                     <h6 className="hed_txt pt-2"><i className='fa fa-long-arrow-left' onClick={() => { history.push('/transporter') }} style={{ fontSize: 16, cursor: 'pointer', color: '#171f2d' }}></i>  Transporter Vehical List</h6>
                                 </div>
-                               
+
                             </div>
                         </div>
                         <div className="recruitment_sec">
@@ -198,14 +198,16 @@ export default function TransporterVehicalList(props) {
                                         assign_driver: (item) => (
                                             <td>
                                                 {item.assign_driver
-                                                    ? item.assign_driver 
+                                                    ? item.assign_driver
                                                     : "--"}
                                             </td>
                                         ),
                                         insurance_document: (item) => (
                                             <td>
                                                 {item.insurance_document
-                                                    ? item.insurance_document
+                                                    ? <a href={item.insurance_document} rel="noopener noreferrer" download target='_blank' style={{ marginRight: 5 }}>
+                                                        <img style={{ borderRadius: 0 }} src={BgPdf} alt='' />
+                                                    </a>
                                                     : "--"}
                                             </td>
                                         ),
@@ -259,9 +261,11 @@ export default function TransporterVehicalList(props) {
                                     <CFormGroup row>
 
                                         {fileList != undefined && fileList.length > 0 && fileList.map((file) => {
-                                            return <CCol md="2" style={{ marginBottom: 10 }}><a href={file} rel="noopener noreferrer" download target='_blank' style={{ marginRight: 5 }}>
-                                                <img style={{ borderRadius: 0 }} src={BgPdf} alt='' />
-                                            </a></CCol>
+                                            return <CCol md="2" style={{ marginBottom: 10,  }}>
+                                                <a href={file} rel="noopener noreferrer" download target='_blank' style={{ marginRight: 5 }}>
+                                                    <img style={{ borderRadius: 0, padding: 15, height: 100, width: 100 }} src={file} alt='' />
+                                                </a>
+                                            </CCol>
 
                                         })}
                                     </CFormGroup>

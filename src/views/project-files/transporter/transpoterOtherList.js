@@ -254,35 +254,38 @@ export default function TransporterOtherList(props) {
                                 <div className="col-md-12">
 
                                     <CFormGroup style={{ overflow: 'scroll' }}>
-                                       
+
 
                                         {materialList != undefined && materialList.length > 0 && materialList.map((item) => {
                                             return <CCol md="12">
                                                 <div class="card">
                                                     <div class="card-header">
-                                                        <h5 class="card-title">{item.material_type}</h5> 
+                                                        <h5 class="card-title">{item.material_type}</h5>
                                                     </div>
                                                     <div class="card-body">
                                                         <h6 class="card-title">No. of units: {item.no_of_units}</h6>
                                                         <p class="card-text">
                                                             <div className="row">
-                                                                <div className="col-md-6">Package weight: {item.package_weight}</div>  
-                                                                <div className="col-md-6">Product dimension: {item.product_dimension}</div>  
-                                                                <div className="col-md-6"></div>  
+                                                                <div className="col-md-6">Package weight: {item.package_weight}</div>
+                                                                <div className="col-md-6">Product dimension: {item.product_dimension}</div>
+                                                                <div className="col-md-6"></div>
                                                             </div>
-                                                            {item.images != undefined && item.images.length > 0 && item.images.map((file) => {
-                                                                return <CCol md="2" style={{ marginBottom: 10 }}><a href={file} rel="noopener noreferrer" download target='_blank' style={{ marginRight: 5 }}>
-                                                                    <img style={{ borderRadius: 0 }} src={BgPdf} alt='' />
-                                                                </a></CCol>
+                                                            <div className="row">
+                                                                {item.images != undefined && item.images.length > 0 && item.images.map((file) => {
+                                                                    return <CCol md="2" style={{ marginBottom: 10 }}><a href={file} rel="noopener noreferrer" download target='_blank' style={{ marginRight: 5 }}>
+                                                                        <img style={{ borderRadius: 0, padding: 10, height: 100, width: 100 }} src={file} alt='' />
+                                                                    </a>
+                                                                    </CCol>
 
-                                                            })}
+
+                                                                })} </div>
                                                         </p>
-                                                           
+
 
                                                     </div>
                                                 </div>
                                             </CCol>
-                                         
+
 
                                         })}
                                     </CFormGroup>

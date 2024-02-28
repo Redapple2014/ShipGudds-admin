@@ -35,7 +35,9 @@ export default function TransporterList(props) {
   const [filteredData, setFilteredData] = useState([]);
   const [loader, setloader] = useState(0)
   const [openModal, setOpenModal] = useState(false)
-  const [transporterId, setTransporterId] = useState()
+  const [transporterId, setTransporterId] = useState();
+  const [filterData, setFilterData] = useState();
+  const [update, setUpdate] = useState(false)
   // pagination setup
   const resultsPerPage = 10
   // const totalResults = response.length
@@ -62,11 +64,9 @@ export default function TransporterList(props) {
     loadTransporterList()
   }, [])
   useEffect(() => {
-    console.log(data);
-    // setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage))
-    // console.log(response);
-    setData(data.slice((page - 1) * resultsPerPage, page * resultsPerPage))
-  }, [page])
+    if (update==true)loadTransporterList()
+    
+  }, [update])
 
 
   /**
@@ -87,14 +87,17 @@ export default function TransporterList(props) {
 
 
   async function loadTransporterList() {
-
-    // setLoader(1);
-    Service.apiPostTokenCallRequest(RouteURL.transporterList, {})
+    
+    let params = JSON.stringify({
+      filter: filterData
+    })
+    Service.apiPostTokenCallRequest(RouteURL.transporterList, params)
       .then((res) => {
         if (res.err === Constants.API_RESPONSE_STATUS_SUCCESS) {
           setTotalResults(res.data.length);
           setData(res.data)
           setFilteredData(res.data)
+          setUpdate(false)
         } else {
           toast.error(res.message, {
             position: toast.POSITION.BOTTOM_RIGHT,
@@ -117,7 +120,7 @@ export default function TransporterList(props) {
 
   return (
     <>
-      {/* {dynamicMenu.length>0? */}
+     
       <>
         <ToastContainer />
         <CRow>
@@ -127,12 +130,20 @@ export default function TransporterList(props) {
                 <div className="col-12 col-sm-4">
                   <h6 className="hed_txt pt-2">Transporter List</h6>
                 </div>
-                {/* <div className="col-12 col-sm-8 d-none d-md-block">
+                <div className="col-12 col-sm-8 d-none d-md-block">
                 <div className="row">
                   <div className="col-sm-3 col-12">
 
-                    <CLabel>Subscription Plan</CLabel>
-                    <CSelect
+                    <CLabel>Filter</CLabel>
+                      <input type="text" placeholder="Filter" name="filterData"
+
+                        onChange={(e) => {setFilterData(e.target.value); }}
+                        // onBlur={updateFormTouchValue}
+                        // value={formValue.estyear}
+                        // error={errorValue.estyear ? "true" : "false"}
+                        // disabled={inputDisable.estyear ? false : true} 
+                        />
+                    {/* <CSelect
                       custom
                       name="plan_id"
                       id="plan_id"
@@ -146,9 +157,9 @@ export default function TransporterList(props) {
                       {subscriptionPlan.map(item => (
                         <option value={item.plan_id}>{item.plan_name} </option>
                       ))}
-                    </CSelect>
+                    </CSelect> */}
                   </div>
-                  <div className="col-12 col-sm-3">
+                  {/* <div className="col-12 col-sm-3">
                     <div className="team_member">
                       <CLabel>From</CLabel>
 
@@ -198,10 +209,31 @@ export default function TransporterList(props) {
                       <option value="1">Active </option>
                       <option value="0">Inactive </option>
                     </CSelect>
-                  </div>
-
+                  </div> */}
+                    <div className="col-sm-6 col-xxl-2 col-xl-3 col-lg-3 col-md-3 col-12">
+                      {/* <div className="asset_in atten_sec"> */}
+                      {/* <CLabel htmlFor="text-input"></CLabel> */}
+                      {/* {<CButton
+                    className="save"
+                  //  onClick={(e) => OpenAddEditModal(0, "", "")}
+                  >
+                    Add Contact
+                  </CButton> } */}
+                      {/* </div> */}
+                      <div className='comp_off_inn'>
+                        <div className="atten_sec">
+                          <CLabel htmlFor="text-input"></CLabel>
+                          <CButton style={{ marginTop: 4 }} className="cancel"
+                            onClick={() => setUpdate(true)} 
+                            // disabled={submitDisable ? true : false}
+                          >
+                            Filter
+                          </CButton>
+                        </div>
+                      </div>
+                    </div>
                 </div>
-              </div> */}
+              </div>
 
               </div>
             </div>
@@ -333,7 +365,6 @@ export default function TransporterList(props) {
                     <div class="card-body">
                       <h5 class="card-title">User List</h5>
                       <p class="card-text"></p>
-                      {/* <a href="#" class="btn btn-primary">Go </a> */}
                     </div>
                   </div>
                 </div>
@@ -346,7 +377,6 @@ export default function TransporterList(props) {
                     <div class="card-body">
                       <h5 class="card-title">Vehical List</h5>
                       <p class="card-text"></p>
-                      {/* <a href="#" class="btn btn-primary">Go </a> */}
                     </div>
                   </div>
                 </div>
@@ -358,19 +388,17 @@ export default function TransporterList(props) {
                     <div class="card-body">
                       <h5 class="card-title">Order</h5>
                       <p class="card-text"></p>
-                      {/* <a href="#" class="btn btn-primary">Go </a> */}
                     </div>
                   </div>
                 </div>
-                <div className="col-md-6">
+                {/* <div className="col-md-6">
                   <div class="card" style={{ width: '14rem' }}>
                     <div class="card-body">
                       <h5 class="card-title">Godown Address</h5>
                       <p class="card-text"></p>
-                      {/* <a href="#" class="btn btn-primary">Go </a> */}
                     </div>
                   </div>
-                </div>
+                </div> */}
 
               </div>
 
