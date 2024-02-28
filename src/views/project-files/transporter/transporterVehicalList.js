@@ -131,7 +131,7 @@ export default function TransporterVehicalList(props) {
                         <div className="recruit_top_sec mb-0 leave_top_sec">
                             <div className="row">
                                 <div className="col-12 col-sm-4">
-                                    <h6 className="hed_txt pt-2"><i className='fa fa-long-arrow-left' onClick={() => { history.goBack() }} style={{ fontSize: 16, cursor: 'pointer', color: '#171f2d' }}></i>  Transporter Vehical List</h6>
+                                    <h6 className="hed_txt pt-2"><i className='fa fa-long-arrow-left' onClick={() => { history.push('/transporter') }} style={{ fontSize: 16, cursor: 'pointer', color: '#171f2d' }}></i>  Transporter Vehical List</h6>
                                 </div>
                                
                             </div>

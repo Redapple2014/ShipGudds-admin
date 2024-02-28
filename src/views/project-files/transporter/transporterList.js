@@ -356,7 +356,7 @@ export default function TransporterList(props) {
                     ); history.push(`/transporter/other/${transporterId}`);
                   }}>
                     <div class="card-body">
-                      <h5 class="card-title">Others</h5>
+                      <h5 class="card-title">Order</h5>
                       <p class="card-text"></p>
                       {/* <a href="#" class="btn btn-primary">Go </a> */}
                     </div>

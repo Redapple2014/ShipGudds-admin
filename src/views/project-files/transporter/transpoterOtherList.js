@@ -35,19 +35,19 @@ export default function TransporterOtherList(props) {
     const [filteredData, setFilteredData] = useState([]);
     const [loader, setloader] = useState(0)
     const [openModal, setOpenModal] = useState(false);
-    const [fileList, setFileList] = useState([]);
+    const [materialList, setMaterialList] = useState([]);
     const [proposalFileModal, setProposalFileModal] = useState(false);
     // pagination setup
     const resultsPerPage = 10
     // const totalResults = response.length
     const fields = [
         // { key: 'photo', label: 'Photo', _style: { width: '8%' }, sorter: false, },
-        'shipper_name', 'shipper_code', 'request_id', 
+        'shipper_name', 'shipper_code', 'request_id',
         "request_date",
-        'to_city',  'from_city',
+        'to_city', 'from_city', 'material_type',
         // 'is_available',
         'status',
-     
+
         // 'subscription_plan', 'subscription_validity', 'ocr_file',
         // {
         //     key: "action",
@@ -95,7 +95,7 @@ export default function TransporterOtherList(props) {
         Service.apiPostTokenCallRequest(RouteURL.transporterAllRequest, params)
             .then((res) => {
                 if (res.err === Constants.API_RESPONSE_STATUS_SUCCESS) {
-                   
+
                     setFilteredData(res.data.allShipmentRequest)
                 } else {
                     toast.error(res.message, {
@@ -115,7 +115,8 @@ export default function TransporterOtherList(props) {
 
     }
     const openFile = (proposal_file) => {
-        setFileList(proposal_file)
+        setMaterialList()
+        setMaterialList(proposal_file)
         setProposalFileModal(!proposalFileModal)
     }
 
@@ -130,7 +131,7 @@ export default function TransporterOtherList(props) {
                         <div className="recruit_top_sec mb-0 leave_top_sec">
                             <div className="row">
                                 <div className="col-12 col-sm-4">
-                                    <h6 className="hed_txt pt-2"><i className='fa fa-long-arrow-left' onClick={() => { history.goBack() }} style={{ fontSize: 16, cursor: 'pointer', color: '#171f2d' }}></i> Transporter All List</h6>
+                                    <h6 className="hed_txt pt-2"><i className='fa fa-long-arrow-left' onClick={() => { history.push('/transporter') }} style={{ fontSize: 16, cursor: 'pointer', color: '#171f2d' }}></i> Transporter All List</h6>
                                 </div>
 
                             </div>
@@ -162,30 +163,15 @@ export default function TransporterOtherList(props) {
                                     // onPageChange={(page) => console.log("page No", page)}
                                     activePage={3}
                                     scopedSlots={{
-                                        // vehicle_image: (item) => (
-                                        //     <td>
-                                        //         {item.vehicle_image.length > 0 ?
-                                        //             <Link
-                                        //                 to='#'
-                                        //                 onClick={(e) => openFile(item.vehicle_image)}
-                                        //                 style={{
-                                        //                     textDecoration: "none",
-                                        //                     color: "#5473FF",
-                                        //                 }}
-                                        //             > {item.vehicle_image.length + ' File(s)'}</Link> : "--"}
 
-
-
-                                        //     </td>
-                                        // ),
                                         to_city: (item) => (
                                             <td>
-                                               
+
                                                 <span type="text" className="text-primary" data-bs-toggle="tooltip" data-bs-placement="top" title={item?.to_location}>
                                                     {item.to_city}
                                                 </span>
-                                              
-                                              
+
+
                                             </td>
                                         ),
                                         from_city: (item) => (
@@ -205,28 +191,20 @@ export default function TransporterOtherList(props) {
                                                     : "--"}
                                             </td>
                                         ),
-
-                                        is_available: (item) => (
+                                        material_type: (item) => (
                                             <td>
-                                                {item.is_available 
-                                                    }
+                                                {item.material_type.length > 0 ?
+                                                    <Link
+                                                        to='#'
+                                                        onClick={(e) => openFile(item.material_type)}
+                                                        style={{
+                                                            textDecoration: "none",
+                                                            color: "#5473FF",
+                                                        }}
+                                                    > {item.material_type.length + ' Type(s)'}</Link> : "--"}
                                             </td>
                                         ),
 
-                                        assign_driver: (item) => (
-                                            <td>
-                                                {item.assign_driver
-                                                    ? item.assign_driver
-                                                    : "--"}
-                                            </td>
-                                        ),
-                                        insurance_document: (item) => (
-                                            <td>
-                                                {item.insurance_document
-                                                    ? item.insurance_document
-                                                    : "--"}
-                                            </td>
-                                        ),
                                         // action: (item, index) => {
                                         //     return (
                                         //         <td>
@@ -262,11 +240,12 @@ export default function TransporterOtherList(props) {
                 show={proposalFileModal}
                 onHide={() => setProposalFileModal(!proposalFileModal)}
                 backdrop="static"
+                size="lg"
             >
 
                 <div className="apply_comp_sec">
                     <Modal.Header closeButton >
-                        <h6 className="hed_txt">File Details</h6>
+                        <h6 className="hed_txt">Material Details</h6>
                     </Modal.Header>
 
                     <div className="comp_inner_sec">
@@ -274,12 +253,36 @@ export default function TransporterOtherList(props) {
                             <div className="row">
                                 <div className="col-md-12">
 
-                                    <CFormGroup row>
+                                    <CFormGroup style={{ overflow: 'scroll' }}>
+                                       
 
-                                        {fileList != undefined && fileList.length > 0 && fileList.map((file) => {
-                                            return <CCol md="2" style={{ marginBottom: 10 }}><a href={file} rel="noopener noreferrer" download target='_blank' style={{ marginRight: 5 }}>
-                                                <img style={{ borderRadius: 0 }} src={BgPdf} alt='' />
-                                            </a></CCol>
+                                        {materialList != undefined && materialList.length > 0 && materialList.map((item) => {
+                                            return <CCol md="12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5 class="card-title">{item.material_type}</h5> 
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <h6 class="card-title">No. of units: {item.no_of_units}</h6>
+                                                        <p class="card-text">
+                                                            <div className="row">
+                                                                <div className="col-md-6">Package weight: {item.package_weight}</div>  
+                                                                <div className="col-md-6">Product dimension: {item.product_dimension}</div>  
+                                                                <div className="col-md-6"></div>  
+                                                            </div>
+                                                            {item.images != undefined && item.images.length > 0 && item.images.map((file) => {
+                                                                return <CCol md="2" style={{ marginBottom: 10 }}><a href={file} rel="noopener noreferrer" download target='_blank' style={{ marginRight: 5 }}>
+                                                                    <img style={{ borderRadius: 0 }} src={BgPdf} alt='' />
+                                                                </a></CCol>
+
+                                                            })}
+                                                        </p>
+                                                           
+
+                                                    </div>
+                                                </div>
+                                            </CCol>
+                                         
 
                                         })}
                                     </CFormGroup>
