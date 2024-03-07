@@ -37,7 +37,9 @@ export default function TransporterList(props) {
   const [openModal, setOpenModal] = useState(false)
   const [transporterId, setTransporterId] = useState();
   const [filterData, setFilterData] = useState();
-  const [update, setUpdate] = useState(false)
+  const [update, setUpdate] = useState(false);
+  const [ocrModal, setOcrModal] = useState(false);
+  const [ocrDetails, setOcrDetails] = useState();
   // pagination setup
   const resultsPerPage = 10
   // const totalResults = response.length
@@ -308,7 +310,17 @@ export default function TransporterList(props) {
                                   } alt='' />
                                 </a>
                               </>
-                              : "--"}
+                              : <Link
+                                to={'#'}
+                                style={{
+                                  textDecoration: "none",
+                                  color: "#5473FF",
+                                }}
+                                onClick={() => { setOcrModal(!ocrModal); setOcrDetails(item)}}
+                              >
+                                OCR Details
+                              </Link>
+                              }
 
                           </td>
                         )
@@ -400,6 +412,40 @@ export default function TransporterList(props) {
                   </div>
                 </div> */}
 
+              </div>
+
+
+            </p>
+          </div>
+
+        </div>
+      </Modal >
+
+      {/* OCR Details  */}
+     
+      < Modal
+        show={ocrModal}
+        onHide={() => setOcrModal(!ocrModal)}
+        backdrop="static"
+        size="lg"
+      >
+        <div className="apply_comp_sec">
+          <Modal.Header closeButton>
+            <h6 className="hed_txt">OCR Details</h6>
+          </Modal.Header>
+          <div className="task_modal_sec">
+            <p>
+              <div class="card" >
+                  <div class="card-body">
+                  <h5 class="card-title">{ocrDetails.firm_name}</h5>
+                  <p class="card-text">Office Address: {ocrDetails.office_address}</p>
+                  <p class="card-text">GST : {ocrDetails.gst_number}</p>
+                  <p class="card-text">Business Type: {ocrDetails.business_type}</p>
+                  <p class="card-text">Establishment Year: {ocrDetails.establishment_year}</p>
+                  
+                  </div>
+                
+                 
               </div>
 
 
