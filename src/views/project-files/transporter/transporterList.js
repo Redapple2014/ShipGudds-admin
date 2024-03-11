@@ -437,11 +437,11 @@ export default function TransporterList(props) {
             <p>
               <div class="card" >
                   <div class="card-body">
-                  <h5 class="card-title">{ocrDetails.firm_name}</h5>
-                  <p class="card-text">Office Address: {ocrDetails.office_address}</p>
-                  <p class="card-text">GST : {ocrDetails.gst_number}</p>
-                  <p class="card-text">Business Type: {ocrDetails.business_type}</p>
-                  <p class="card-text">Establishment Year: {ocrDetails.establishment_year}</p>
+                  <h5 class="card-title">{ocrDetails?.firm_name}</h5>
+                  <p class="card-text">Office Address: {ocrDetails?.office_address}</p>
+                  <p class="card-text">GST : {ocrDetails?.gst_number}</p>
+                  <p class="card-text">Business Type: {ocrDetails?.business_type}</p>
+                  <p class="card-text">Establishment Year: {ocrDetails?.establishment_year}</p>
                   
                   </div>
                 
